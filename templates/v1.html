@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Resume Analyzer</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f5f7fa;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.hero p {
+    margin-top: 10px;
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* MAIN */
+.container {
+    width: 55%;
+    margin: -40px auto 40px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+/* UPLOAD BOX */
+.upload-box {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    background: #fafafa;
+}
+
+.upload-box input {
+    margin-top: 15px;
+}
+
+.small-text {
+    font-size: 12px;
+    color: gray;
+}
+
+/* INPUT */
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #2a5298;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1e3c72;
+}
+
+/* SCORE */
+.progress-container {
+    background: #eee;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 20px;
+    background: #2a5298;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+}
+
+/* TEXT */
+.section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.matched { color: green; }
+.missing { color: red; }
+
+.result {
+    white-space: pre-wrap;
+    font-size: 14px;
+}
+
+.loading {
+    text-align: center;
+    font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>AI Resume Analyzer</h1>
+    <p>Analyze your resume and improve your chances of getting hired</p>
+</div>
+
+<div class="container">
+
+    <!-- UPLOAD -->
+    <div class="card">
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="upload-box">
+                <p><b>Upload your resume</b></p>
+                <p class="small-text">PDF only • Max 2MB • Privacy guaranteed</p>
+                <input type="file" name="resume" required>
+            </div>
+
+            <input type="text" name="job_role" placeholder="Target role (e.g. Data Scientist)" required>
+
+            <button type="submit">Analyze Resume</button>
+
+        </form>
+    </div>
+
+    <!-- LOADING -->
+    {% if loading %}
+    <div class="card">
+        <p class="loading">Analyzing resume...</p>
+    </div>
+    {% endif %}
+
+    <!-- SCORE -->
+    {% if score is not none %}
+    <div class="card">
+        <div class="section-title">Resume Score</div>
+        <div class="progress-container">
+            <div class="progress-bar" style="width: {{ score | int }}%;">
+                {{ score | int }}%
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- MATCHED -->
+    {% if matched %}
+    <div class="card">
+        <div class="section-title matched">Matched Skills</div>
+        <ul>
+            {% for skill in matched %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- MISSING -->
+    {% if missing %}
+    <div class="card">
+        <div class="section-title missing">Missing Skills</div>
+        <ul>
+            {% for skill in missing %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- RESULT -->
+    {% if result %}
+    <div class="card">
+        <div class="section-title">Detailed Analysis</div>
+        <div class="result">{{ result }}</div>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
