@@ -1,46 +1,37 @@
-# 🚀 AI Resume Analyzer
+# AI Resume Analyzer 🚀
 
-An AI-powered web application that analyzes resumes and provides insights on skills, missing areas, and improvement suggestions.
-
----
-
-## 🔥 Features
-
-- 📄 Upload resume (PDF)
-- 🔍 Extract text from resume
-- 🧠 AI-based skill detection
-- ⚠️ Identify missing skills
-- 💡 Suggest improvements
-- 🌐 Simple web interface
+A web-based AI-powered application that analyzes resumes, extracts skills, compares them with a target job role, and provides intelligent suggestions for improvement.
 
 ---
 
-## 🛠️ Tech Stack
+## 📌 Features
+
+- Upload resume (PDF)
+- Extract text from resume
+- Identify key skills
+- Compare with job role
+- Calculate resume match score
+- Highlight:
+  - Matched skills
+  - Missing skills
+- AI-powered suggestions for improvement
+
+---
+
+## 🛠 Tech Stack
 
 - Python
 - Flask
-- PDFPlumber
-- Groq API (LLM)
-- HTML/CSS
-
----
-
-## 📂 Project Structure
-
-```text
-AI-Resume-Analyzer/
-├── app.py
-├── ai_analyzer.py
-├── resume_parser.py
-├── requirements.txt
-└── templates/
-    └── index.html
+- OpenAI API
+- PyPDF2
+- HTML / CSS
 
 ---
 
 ## ⚙️ Installation
 
+1. Clone the repository:
+
 ```bash
 git clone https://github.com/your-username/AI-Resume-Analyzer.git
 cd AI-Resume-Analyzer
-pip install -r requirements.txt
