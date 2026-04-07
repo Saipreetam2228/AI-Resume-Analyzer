@@ -7,11 +7,6 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# ✅ SSL सेटिंग (keep as it is)
-os.environ["SSL_CERT_FILE"] = r"D:\@ IIIBSC\Mini-Project_2k25\AI-Resume-AnalyzerSecurityAppliance_SSL_CA.pem"
-os.environ["REQUESTS_CA_BUNDLE"] = os.environ["SSL_CERT_FILE"]
-os.environ["CURL_CA_BUNDLE"] = os.environ["SSL_CERT_FILE"]
-
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])

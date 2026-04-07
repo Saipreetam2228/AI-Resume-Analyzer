@@ -9,7 +9,7 @@ load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # SSL (keep if needed)
-os.environ['REQUESTS_CA_BUNDLE'] = 'SecurityAppliance_SSL_CA.pem'
+
 
 
 def analyze_resume(text):
