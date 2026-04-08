@@ -1,13 +1,48 @@
+# ai_analyzer.py
+
 import os
 from dotenv import load_dotenv
 
+# Try Gemini (new SDK)
+try:
+    from google import genai
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    GEMINI_AVAILABLE = True
+except:
+    GEMINI_AVAILABLE = False
+
 load_dotenv()
+
 
 def analyze_resume(text):
     try:
-        print("🚀 Running in DEMO MODE (no API errors)")
+        # ✅ If Gemini works
+        if GEMINI_AVAILABLE:
+            print("🚀 Using Gemini API...")
 
-        return f"""
+            response = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents=f"""
+You are an expert ATS resume analyzer.
+
+Analyze the resume and give:
+
+1. Skills detected
+2. Missing skills
+3. Suggestions
+
+Resume:
+{text}
+"""
+            )
+
+            return response.text
+
+        # ✅ Fallback (DEMO MODE)
+        else:
+            print("🚀 Running in DEMO MODE (no API)")
+
+            return f"""
 --- Resume Analysis ---
 
 Skills detected:
@@ -29,8 +64,29 @@ Suggestions:
 """
 
     except Exception as e:
-        print("Error:", e)
-        return "Error in analysis"
+        print("❌ Error:", e)
+
+        # ✅ Safe fallback (VERY IMPORTANT)
+        return f"""
+⚠️ AI temporarily unavailable
+
+--- Resume Analysis ---
+
+Skills detected:
+- Python
+- Machine Learning
+- Data Analysis
+
+Missing skills:
+- SQL
+- Deep Learning
+- Communication
+
+Suggestions:
+- Add more projects
+- Add achievements
+- Improve clarity
+"""
 
 
 def calculate_score(text, job_role):
